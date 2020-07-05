@@ -97,6 +97,10 @@ class BoardImpl : Board {
 
     override fun getGraphCells() : Map<Cell, List<Cell>> = graphCells
 
+    override fun getStepVariants(cell: Cell) : List<Cell> {
+        return graphCells[cell]!!
+    }
+
     private fun getCheckersPlayer(range: IntRange) = graphCells.keys
             .filter { it.verticalIndex in range }
             .mapIndexed { index, cell -> Checker(index + 1, cell) }

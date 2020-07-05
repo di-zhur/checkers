@@ -10,4 +10,5 @@ interface Board {
 
     fun getGraphCells() : Map<Cell, List<Cell>>
 
+    fun getStepVariants(cell: Cell) : List<Cell>
 }

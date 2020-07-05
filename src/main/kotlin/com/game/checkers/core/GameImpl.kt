@@ -8,6 +8,7 @@ class GameImpl : Game {
         val board = BoardImpl()
         board.initialize(Player("dima"), Player("tom"))
         board.getGraphCells()
+        print(board.getStepVariants(Cell(1, 1)))
     }
 
     override fun complete() {

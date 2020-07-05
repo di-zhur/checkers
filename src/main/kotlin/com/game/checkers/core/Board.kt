@@ -6,9 +6,9 @@ interface Board {
 
     fun getChecker(player: Player, checker: Checker) : Checker?
 
-    fun getCheckers(player: Player) : List<Checker>?
+    fun getCheckers(player: Player) : Set<Checker>?
 
-    fun getGraphCells() : Map<Cell, List<Cell>>
+    fun getGraphCells() : Map<Cell, Set<Cell>>
 
-    fun getStepVariants(cell: Cell) : List<Cell>
+    fun getStepVariants(cell: Cell) : Set<Cell>
 }

@@ -89,6 +89,11 @@ class BoardImpl : Board {
         playerCheckers[secondPlayer] = getCheckersPlayer(6..8)
     }
 
+    private fun getCheckersPlayer(range: IntRange) : Set<Checker> = graphCells.keys
+            .filter { it.verticalIndex in range }
+            .mapIndexed { index, cell -> Checker(index + 1, cell) }
+            .toSet()
+
     override fun getChecker(player: Player, checker: Checker) : Checker? =
             playerCheckers[player]
                     ?.first { it == checker }
@@ -97,12 +102,20 @@ class BoardImpl : Board {
 
     override fun getGraphCells() : Map<Cell, Set<Cell>> = graphCells
 
-    override fun getStepVariants(cell: Cell) : Set<Cell> {
-        return graphCells[cell]!!
-    }
+    override fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : Set<Cell> {
+        val variantCells = mutableSetOf<Cell>()
+        val passiveCheckerCells = playerCheckers[passivePlayer]!!.map { it.cell }
 
-    private fun getCheckersPlayer(range: IntRange) : Set<Checker> = graphCells.keys
-            .filter { it.verticalIndex in range }
-            .mapIndexed { index, cell -> Checker(index + 1, cell) }
-            .toSet()
+        graphCells[checker.cell]!!
+
+        graphCells[checker.cell]!!.forEach{
+            if (passiveCheckerCells.contains(it)) {
+                TODO()
+            } else {
+                variantCells.add(it)
+            }
+        }
+
+        return variantCells
+    }
 }

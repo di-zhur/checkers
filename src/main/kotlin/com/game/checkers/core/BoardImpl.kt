@@ -106,7 +106,6 @@ class BoardImpl : Board {
         val checkerCell = checker.cell
         val passiveCheckerCells = playerCheckers[passivePlayer]!!.map { it.cell }
         val relatedCells = graphCells[checkerCell]!!
-
         val variantCells = mutableListOf<Pair<StepType, Cell>>()
 
         //1. Cells for next step
@@ -151,5 +150,9 @@ class BoardImpl : Board {
         }
 
         return variantCells
+    }
+
+    fun step(player: Player, checker: Checker, newCell: Cell) {
+        getCheckers(player)!!.first { it == checker }
     }
 }

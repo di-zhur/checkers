@@ -34,7 +34,7 @@ enum class Horizontal(private val index: Int) {
     }
 }
 
-data class Checker(val id: Int, val cell: Cell)
+data class Checker(val id: Int, var cell: Cell)
 
 data class Cell(val verticalIndex: Int, val horizontalIndex: Int) {
 
@@ -47,7 +47,7 @@ data class Cell(val verticalIndex: Int, val horizontalIndex: Int) {
 
 class BoardImpl : Board {
     private val graphCells = mutableMapOf<Cell, Set<Cell>>()
-    private val playerCheckers = mutableMapOf<Player, Set<Checker>>()
+    private val playerCheckers = mutableMapOf<Player, MutableSet<Checker>>()
 
     override fun initialize(firstPlayer: Player, secondPlayer: Player) {
         val range: IntRange = 1..8
@@ -89,16 +89,16 @@ class BoardImpl : Board {
         playerCheckers[secondPlayer] = getCheckersPlayer(6..8)
     }
 
-    private fun getCheckersPlayer(range: IntRange) : Set<Checker> = graphCells.keys
+    private fun getCheckersPlayer(range: IntRange) : MutableSet<Checker> = graphCells.keys
             .filter { it.verticalIndex in range }
             .mapIndexed { index, cell -> Checker(index + 1, cell) }
-            .toSet()
+            .toMutableSet()
 
     override fun getChecker(player: Player, checker: Checker) : Checker? =
             playerCheckers[player]
                     ?.first { it == checker }
 
-    override fun getCheckers(player: Player) : Set<Checker>? = playerCheckers[player]
+    override fun getCheckers(player: Player) : MutableSet<Checker> = playerCheckers[player]!!
 
     override fun getGraphCells() : Map<Cell, Set<Cell>> = graphCells
 
@@ -153,6 +153,8 @@ class BoardImpl : Board {
     }
 
     fun step(player: Player, checker: Checker, newCell: Cell) {
-        getCheckers(player)!!.first { it == checker }
+        getCheckers(player).removeIf { it.id == checker.id }
+        checker.cell = newCell
+        getCheckers(player).add(checker)
     }
 }

@@ -102,17 +102,51 @@ class BoardImpl : Board {
 
     override fun getGraphCells() : Map<Cell, Set<Cell>> = graphCells
 
-    override fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : Set<Cell> {
-        val variantCells = mutableSetOf<Cell>()
+    override fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : List<Pair<StepType, Cell>> {
+        val checkerCell = checker.cell
         val passiveCheckerCells = playerCheckers[passivePlayer]!!.map { it.cell }
+        val relatedCells = graphCells[checkerCell]!!
 
-        graphCells[checker.cell]!!
+        val variantCells = mutableListOf<Pair<StepType, Cell>>()
 
-        graphCells[checker.cell]!!.forEach{
+        //1. Cells for next step
+        val nextStepVerticalIndex = when (activePlayer.stepDirection) {
+            StepDirection.UP -> {
+                relatedCells.maxBy { it.verticalIndex }!!
+                        .getVertical()
+                        .getIndex()
+            }
+            StepDirection.DOWN -> {
+                relatedCells.minBy { it.verticalIndex }!!
+                        .getVertical()
+                        .getIndex()
+            }
+        }
+        relatedCells.filter { it.verticalIndex == nextStepVerticalIndex }.forEach{
+            if (!passiveCheckerCells.contains(it)) {
+                variantCells.add(Pair(StepType.JUMP, it))
+            }
+        }
+
+        //2. Cells for eat next step
+        relatedCells.forEach{
             if (passiveCheckerCells.contains(it)) {
-                TODO()
-            } else {
-                variantCells.add(it)
+                val nextVerticalIndex = if (checkerCell.verticalIndex > it.verticalIndex) {
+                    it.verticalIndex.minus(1)
+                } else {
+                    it.verticalIndex.plus(1)
+                }
+
+                val nextHorizontalIndex = if (checkerCell.horizontalIndex > it.horizontalIndex) {
+                    it.horizontalIndex.minus(1)
+                } else {
+                    it.horizontalIndex.plus(1)
+                }
+
+                val nextCell = Cell(nextVerticalIndex, nextHorizontalIndex)
+                if (!passiveCheckerCells.contains(nextCell)) {
+                    variantCells.add(Pair(StepType.KILL, nextCell))
+                }
             }
         }
 

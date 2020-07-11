@@ -10,5 +10,5 @@ interface Board {
 
     fun getGraphCells() : Map<Cell, Set<Cell>>
 
-    fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : Set<Cell>
+    fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : List<Pair<StepType, Cell>>
 }

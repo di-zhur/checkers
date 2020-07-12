@@ -157,4 +157,5 @@ class BoardImpl : Board {
         checker.cell = newCell
         getCheckers(player).add(checker)
     }
+
 }

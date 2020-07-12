@@ -11,7 +11,6 @@ enum class StepDirection {
 }
 
 
-
 class GameImpl : Game {
 
     override fun execute() {

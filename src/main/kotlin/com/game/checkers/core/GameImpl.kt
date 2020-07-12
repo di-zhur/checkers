@@ -10,18 +10,20 @@ enum class StepDirection {
     DOWN
 }
 
-
 class GameImpl : Game {
 
     override fun execute() {
         val board = BoardImpl()
-        val player1 = PlayerFirst("Dima")
-        val player2 = PlayerSecond("Tom")
+        val player1 = FirstPlayer()
+        val player2 = SecondPlayer()
         board.initialize(player1, player2)
         board.getGraphCells()
         print(board.getStepVariants(player1, player2,
                 Checker(1, Cell(3, 3))))
-        board.step(player1, Checker(1, Cell(3, 3)), Cell(4, 4))
+
+        board.step(player1,
+                Checker(1, Cell(3, 3)),
+                Cell(4, 4))
     }
 
     override fun complete() {

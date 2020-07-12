@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.table-sm td {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

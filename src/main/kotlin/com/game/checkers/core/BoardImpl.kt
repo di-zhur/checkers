@@ -34,15 +34,20 @@ enum class Horizontal(private val index: Int) {
     }
 }
 
+enum class StateCell {
+    ACTIVE,
+    PASSIVE
+}
+
 data class Checker(val id: Int, var cell: Cell)
 
-data class Cell(val verticalIndex: Int, val horizontalIndex: Int) {
+data class Cell(val verticalIndex: Int, val horizontalIndex: Int, val stateCell: StateCell = StateCell.ACTIVE) {
 
     fun getVertical() = Vertical.getValue(verticalIndex)
 
     fun getHorizontal() = Horizontal.getValue(horizontalIndex)
 
-    override fun toString()= "(${getVertical()}, ${getHorizontal()})"
+    override fun toString()= "(${getVertical()}, ${getHorizontal()}, ${stateCell})"
 }
 
 class BoardImpl : Board {
@@ -81,6 +86,8 @@ class BoardImpl : Board {
                     }
 
                     graphCells[Cell(verticalIndex, horizontalIndex)] = relatedCells
+                } else {
+                    graphCells[Cell(verticalIndex, horizontalIndex, StateCell.PASSIVE)] = emptySet()
                 }
             }
         }
@@ -101,6 +108,8 @@ class BoardImpl : Board {
     override fun getCheckers(player: Player) : MutableSet<Checker> = playerCheckers[player]!!
 
     override fun getGraphCells() : Map<Cell, Set<Cell>> = graphCells
+
+    override fun getCells() : Set<Cell> = graphCells.keys.toSet()
 
     override fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : List<Pair<StepType, Cell>> {
         val checkerCell = checker.cell
@@ -142,7 +151,7 @@ class BoardImpl : Board {
                     it.horizontalIndex.plus(1)
                 }
 
-                val nextCell = Cell(nextVerticalIndex, nextHorizontalIndex)
+                val nextCell = Cell(nextVerticalIndex, nextHorizontalIndex, StateCell.ACTIVE)
                 if (!passiveCheckerCells.contains(nextCell)) {
                     variantCells.add(Pair(StepType.KILL, nextCell))
                 }

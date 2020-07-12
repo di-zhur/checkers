@@ -4,10 +4,10 @@ interface Player {
     val stepDirection: StepDirection
 }
 
-class PlayerFirst(val name: String, val email: String = "") : Player {
+class FirstPlayer(val name: String = "FirstPlayer", val email: String = "") : Player {
     override val stepDirection: StepDirection = StepDirection.UP
 }
 
-class PlayerSecond(val name: String, val email: String = "") : Player {
+class SecondPlayer(val name: String = "SecondPlayer", val email: String = "") : Player {
     override val stepDirection: StepDirection = StepDirection.DOWN
 }

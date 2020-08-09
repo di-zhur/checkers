@@ -19,10 +19,10 @@ class GameImpl : Game {
         board.initialize(player1, player2)
         board.getGraphCells()
         print(board.getStepVariants(player1, player2,
-                Checker(1, Cell(3, 3))))
+                Checker(Cell(3, 3))))
 
         board.step(player1,
-                Checker(1, Cell(3, 3)),
+                Checker(Cell(3, 3)),
                 Cell(4, 4))
     }
 

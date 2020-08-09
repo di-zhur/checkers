@@ -1,6 +1,5 @@
 package com.game.checkers.core
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import com.vladmihalcea.hibernate.type.json.JsonStringType
@@ -19,7 +18,7 @@ import javax.persistence.*
 data class Checker (
 
         @Type(type = "jsonb")
-        @Column(columnDefinition = "json")
+        @Column(name = "value", columnDefinition = "json")
         var cell: Cell,
 
         @Column(name = "id", columnDefinition = "uuid")
@@ -27,13 +26,11 @@ data class Checker (
         var id: UUID = UUID.randomUUID()
 )
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Cell(val verticalIndex: Int, val horizontalIndex: Int, val stateCell: StateCell = StateCell.ACTIVE) {
 
-    @JsonIgnore
     fun getVertical() = Vertical.getValue(verticalIndex)
 
-    @JsonIgnore
     fun getHorizontal() = Horizontal.getValue(horizontalIndex)
 
     override fun toString()= "(${getVertical()}, ${getHorizontal()}, ${stateCell})"

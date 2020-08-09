@@ -13,7 +13,7 @@ enum class Vertical(private val index: Int) {
     fun getIndex() = index
 
     companion object {
-        fun getValue(index: Int) : Vertical = values().first { it -> it.index == index }
+        fun getValue(index: Int) : Vertical = values().first { it.index == index }
     }
 }
 
@@ -30,7 +30,7 @@ enum class Horizontal(private val index: Int) {
     fun getIndex() = index
 
     companion object {
-        fun getValue(index: Int) : Horizontal = values().first { it -> it.index == index }
+        fun getValue(index: Int) : Horizontal = values().first { it.index == index }
     }
 }
 

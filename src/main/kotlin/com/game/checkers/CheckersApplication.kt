@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.socket.config.annotation.EnableWebSocket
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer
@@ -24,12 +26,27 @@ fun main(args: Array<String>) {
 class CheckersController {
 
 	@GetMapping("/getCheckers")
-	fun get(): Set<Cell>  {
+	fun getCheckers(): Set<Cell>  {
 		val board = BoardImpl()
 		val player1 = FirstPlayer()
 		val player2 = SecondPlayer()
 		board.initialize(player1, player2)
 		return board.getCells()
+	}
+
+	@GetMapping("/getSteps")
+	fun getSteps(@RequestBody stepCell: Cell): Set<Cell>  {
+		return mutableSetOf()
+	}
+
+	@PostMapping("/step")
+	fun step(@RequestBody stepCell: Cell, checkerId: String) {
+
+	}
+
+	@GetMapping("/isActivePlayer")
+	fun isActivePlayer(playerId: String): Boolean  {
+		return false
 	}
 
 }

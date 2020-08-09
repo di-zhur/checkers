@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.socket.config.annotation.EnableWebSocket
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
+//import org.springframework.web.socket.config.annotation.EnableWebSocket
+//import org.springframework.web.socket.config.annotation.WebSocketConfigurer
+//import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 @SpringBootApplication
 class CheckersApplication
@@ -51,10 +51,11 @@ class CheckersController {
 
 }
 
+/*
 @Configuration
 @EnableWebSocket
 class WSConfig : WebSocketConfigurer {
 	override fun registerWebSocketHandlers(registry: WebSocketHandlerRegistry) {
 		//registry.addHandler(ChatHandler(), "/chat").withSockJS()
 	}
-}
+}*/

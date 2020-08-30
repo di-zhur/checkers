@@ -3,7 +3,13 @@ package com.game.checkers.core
 /**
  * Интерфейс функциональных возможностей игры.
  */
-interface Game {
+interface GameService {
+
+    fun create()
+
+    fun start()
+
+    fun end()
 
     fun execute()
 

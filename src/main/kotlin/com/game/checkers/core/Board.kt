@@ -1,5 +1,8 @@
 package com.game.checkers.core
 
+import com.game.checkers.db.Cell
+import com.game.checkers.db.Checker
+
 interface Board {
 
     fun initialize(firstPlayer: Player, secondPlayer: Player)
@@ -13,6 +16,8 @@ interface Board {
     fun getCells(): Set<Cell>
 
     fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : List<Pair<StepType, Cell>>
+
+    fun getPlayerCheckers() : Map<Player, MutableSet<Checker>>
 
     //fun step()
 }

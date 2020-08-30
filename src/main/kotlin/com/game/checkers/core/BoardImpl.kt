@@ -1,5 +1,8 @@
 package com.game.checkers.core
 
+import com.game.checkers.db.Cell
+import com.game.checkers.db.Checker
+
 enum class Vertical(private val index: Int) {
     ONE(1),
     TWO(2),
@@ -100,6 +103,8 @@ class BoardImpl : Board {
     override fun getGraphCells() : Map<Cell, Set<Cell>> = graphCells
 
     override fun getCells() : Set<Cell> = graphCells.keys.toSet()
+
+    override fun getPlayerCheckers() : Map<Player, MutableSet<Checker>> = playerCheckers
 
     override fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : List<Pair<StepType, Cell>> {
         val checkerCell = checker.cell

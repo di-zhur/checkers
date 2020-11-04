@@ -18,6 +18,5 @@ interface Board {
     fun getStepVariants(activePlayer: Player, passivePlayer: Player, checker: Checker) : List<Pair<StepType, Cell>>
 
     fun getPlayerCheckers() : Map<Player, MutableSet<Checker>>
-
-    //fun step()
+    
 }

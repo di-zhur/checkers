@@ -21,15 +21,8 @@ enum class StepDirection {
 @Service
 class GameServiceImpl(private val checkersGameRepository: CheckersGameRepository) : GameService {
 
-    @Transactional
     override fun create() {
-        val board = BoardImpl()
-        val player1 = FirstPlayer()
-        val player2 = SecondPlayer()
-        board.initialize(player1, player2)
-        val checkersGame = CheckersGame(Board(board.getCells()))
-        checkersGameRepository.save(checkersGame)
-        TODO()
+        TODO("Not yet implemented")
     }
 
     override fun start() {
@@ -41,17 +34,7 @@ class GameServiceImpl(private val checkersGameRepository: CheckersGameRepository
     }
 
     override fun execute() {
-        val board = BoardImpl()
-        val player1 = FirstPlayer()
-        val player2 = SecondPlayer()
-        board.initialize(player1, player2)
-        board.getGraphCells()
-        print(board.getStepVariants(player1, player2,
-                Checker(Cell(3, 3))))
-
-        board.step(player1,
-                Checker(Cell(3, 3)),
-                Cell(4, 4))
+        TODO("Not yet implemented")
     }
 
     override fun complete() {
